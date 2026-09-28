@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FleetAxis | Intelligent Fleet Architecture</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Premium Balanced Layout Styles */
+    .hero-section { min-height: 90vh; display: flex; align-items: center; position: relative; padding-top: var(--header-h); overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('images/hero-hub.png') center/cover no-repeat; opacity: 0.5; z-index: -1; filter: brightness(0.6); }
+    
+    .topo-grid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 100px 100px; pointer-events: none; }
+    
+    .lead-text { font-size: 1.25rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 32px; font-weight: 300; }
+    
+    .feature-card { border: 1px solid var(--border-color); padding: 40px; background: var(--bg-surface); transition: transform 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; height: 100%; }
+    .feature-card:hover { border-color: var(--accent-cyan); transform: translateY(-4px); }
+    
+    .stat-block { text-align: center; padding: 40px 20px; border-right: 1px solid var(--border-color); }
+    .stat-block:last-child { border-right: none; }
+    .stat-number { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3.5rem; font-weight: 300; color: var(--text-base); line-height: 1; margin-bottom: 8px; }
+    
+    .integration-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; margin-top: 40px; }
+    .integration-node { border: 1px solid var(--border-color); padding: 24px; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: center; min-height: 140px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 1rem; color: var(--text-muted); transition: all 0.3s; }
+    .integration-node:hover { color: var(--text-base); border-color: var(--accent-cyan); transform: translateY(-4px); }
+    .integration-node svg { color: var(--text-muted); transition: color 0.3s; }
+    .integration-node:hover svg { color: var(--text-base); }
+    
+    @media (max-width: 900px) {
+      .integration-grid { grid-template-columns: 1fr 1fr; }
+      .stat-block { border-right: none; border-bottom: 1px solid var(--border-color); }
+      .stat-block:last-child { border-bottom: none; }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+      <nav class="nav">
+        <div class="nav-item">
+          <a href="#" class="nav-link active">Architecture</a>
+          <div class="dropdown">
+            <a href="index.html" class="dropdown-item">Home 1 (Cinematic)</a>
+            <a href="home2.html" class="dropdown-item">Home 2 (Swiss Grid)</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="services.html" class="nav-link">Capabilities</a></div>
+        <div class="nav-item"><a href="catalog.html" class="nav-link">Fleet Inventory</a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link">Economics</a></div>
+        <div class="nav-item">
+          <a href="login.html" class="nav-link">Terminal</a>
+          <div class="dropdown">
+            <a href="dashboard-user.html" class="dropdown-item">User Dashboard</a>
+            <a href="dashboard-admin.html" class="dropdown-item">Admin Dashboard</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-controls">
+        <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
+        <div class="dir-toggle" id="dirToggle">LTR</div>
+        <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: HERO (Balanced) -->
+    <section class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="topo-grid"></div>
+      
+      <div class="container relative z-10">
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 800px; margin: 0 auto;">
+          <div class="reveal" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="label-mini" style="margin-bottom: 24px;">System Architecture 2.0</div>
+            <h1 class="display-1" style="margin-bottom: 24px;">Precision <br>At Scale.</h1>
+            <p class="lead-text" style="max-width: 600px; margin: 0 auto 32px;">
+              A unified infrastructure platform replacing fragmented corporate fleet management. Acquire vehicles, monitor telemetry, and automate ledgers—in one place.
+            </p>
+            <div class="flex" style="gap: 24px; justify-content: center;">
+              <a href="services.html" class="btn btn-primary">Explore Platform</a>
+              <a href="pricing.html" class="btn btn-outline">Analyze Economics</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE PARADIGM -->
+    <section class="section">
+      <div class="container">
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+          <div class="reveal">
+            <div class="img-placeholder" style="height: 600px; padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/dashboard-isometric.png" alt="Fleet Manager Dashboard" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+          
+          <div class="reveal delay-1" style="max-width: 500px;">
+            <div class="label-mini" style="margin-bottom: 24px;">The Paradigm</div>
+            <h2 style="margin-bottom: 24px;">Moving beyond the spreadsheet.</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 32px;">
+              Legacy fleet management relies on siloed vendors for leasing, GPS, and fuel cards. We engineered a singular, vertically integrated solution.
+            </p>
+            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px;">
+              <li style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span style="color: var(--text-base);">Native OBD-II Telemetry</span>
+              </li>
+              <li style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span style="color: var(--text-base);">Automated Expense Reconciliation</span>
+              </li>
+              <li style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span style="color: var(--text-base);">Predictive Maintenance</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CORE SOLUTIONS (Cards) -->
+    <section class="section" style="background: var(--bg-surface-2);">
+      <div class="container">
+        <h2 class="reveal" style="margin-bottom: 60px; text-align: center;">Unified Logistics Core.</h2>
+        
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 40px;">
+          <div class="feature-card reveal delay-1">
+            <div class="img-placeholder" style="height: 200px; margin-bottom: 32px; border-radius: var(--r-md); padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/cargo-van.png" alt="Cargo Van" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+            <h3 style="margin-bottom: 16px; font-size: 1.25rem;">Algorithmic Acquisition</h3>
+            <p style="color: var(--text-muted); line-height: 1.6; margin: 0;">We analyze historical route data to mathematically select the optimal vehicle class for your operations.</p>
+          </div>
+          
+          <div class="feature-card reveal delay-2">
+            <div class="img-placeholder" style="height: 200px; margin-bottom: 32px; border-radius: var(--r-md); padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/ui-snapshot.png" alt="Dashboard UI" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+            <h3 style="margin-bottom: 16px; font-size: 1.25rem;">Millisecond Telemetry</h3>
+            <p style="color: var(--text-muted); line-height: 1.6; margin: 0;">Stream real-time spatial GPS coordinates and deep engine diagnostics directly to your central console.</p>
+          </div>
+          
+          <div class="feature-card reveal delay-3">
+            <div class="img-placeholder" style="height: 200px; margin-bottom: 32px; border-radius: var(--r-md); padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/mobile-app.png" alt="Mobile App" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+            <h3 style="margin-bottom: 16px; font-size: 1.25rem;">Financial Tokenization</h3>
+            <p style="color: var(--text-muted); line-height: 1.6; margin: 0;">Eliminate manual expense reports. Drivers authorize fuel payments directly at the pump via our app.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: METRICS -->
+    <section class="section">
+      <div class="container">
+        <div class="grid reveal" style="border: 1px solid var(--border-color); background: var(--bg-surface); border-radius: var(--r-xl); grid-template-columns: repeat(3, 1fr);">
+          <div class="stat-block">
+            <div class="stat-number">40k+</div>
+            <div class="font-mono text-xs text-muted">ACTIVE NODES DEPLOYED</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-number">99.9%</div>
+            <div class="font-mono text-xs text-muted">API UPTIME</div>
+          </div>
+          <div class="stat-block" style="border-right: none;">
+            <div class="stat-number">14k</div>
+            <div class="font-mono text-xs text-muted">SERVICE PARTNERS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: INTEGRATION -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="reveal" style="text-align: center; max-width: 600px; margin: 0 auto 60px;">
+          <h2 style="margin-bottom: 24px;">Agnostic Integration</h2>
+          <p style="color: var(--text-muted);">FleetAxis is designed to pipe data directly into your existing ERP systems. We provide robust GraphQL and REST APIs.</p>
+        </div>
+        <div class="integration-grid reveal delay-1">
+          <div class="integration-node">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M0 6.064v11.872h12.13L24 6.064zm3.264 2.208h.005c.863.001 1.915.245 2.676.633l-.82 1.43c-.835-.404-1.255-.442-1.73-.467-.708-.038-1.064.215-1.069.488-.007.332.669.633 1.305.838.964.306 2.19.715 2.377 1.9L7.77 8.437h2.046l2.064 5.576-.007-5.575h2.37c2.257 0 3.318.764 3.318 2.519 0 1.575-1.09 2.514-2.936 2.514h-.763l-.01 2.094-3.588-.003-.25-.908c-.37.122-.787.189-1.23.189-.456 0-.885-.071-1.263-.2l-.358.919-2 .006.09-.462c-.029.025-.057.05-.087.074-.535.43-1.208.629-2.037.644l-.213.002a5.075 5.075 0 0 1-2.581-.675l.73-1.448c.79.467 1.286.572 1.956.558.347-.007.598-.07.761-.239a.557.557 0 0 0 .156-.369c.007-.376-.53-.553-1.185-.756-.531-.164-1.135-.389-1.606-.735-.559-.41-.825-.924-.812-1.65a1.99 1.99 0 0 1 .566-1.377c.519-.537 1.357-.863 2.363-.863zm10.597 1.67v1.904h.521c.694 0 1.247-.23 1.248-.964 0-.709-.554-.94-1.248-.94zm-5.087.767l-.748 2.362c.223.085.481.133.757.133.268 0 .52-.047.742-.126l-.736-2.37z"/></svg>
+            <span>SAP S/4HANA</span>
+          </div>
+          <div class="integration-node">
+            <svg width="100" height="40" viewBox="0 0 100 40" fill="currentColor"><text x="50" y="28" font-family="'Inter', sans-serif" font-weight="900" font-size="20" letter-spacing="1.5" text-anchor="middle">ORACLE</text></svg>
+            <span>Oracle ERP</span>
+          </div>
+          <div class="integration-node">
+            <svg width="100" height="40" viewBox="0 0 100 40" fill="currentColor"><text x="50" y="28" font-family="'Inter', sans-serif" font-weight="900" font-size="24" letter-spacing="-1.5" text-anchor="middle">workday.</text></svg>
+            <span>Workday</span>
+          </div>
+          <div class="integration-node">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span>Custom Webhooks</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: ROI CASE STUDY -->
+    <section class="section" style="position: relative; overflow: hidden; padding: 120px 0; display: flex; align-items: center; justify-content: center; background: #000;">
+      <!-- Background Image -->
+      <div style="position: absolute; inset: 0; background: url('images/roi-chart.png') center/cover no-repeat; opacity: 0.5; z-index: 1; filter: brightness(0.6);"></div>
+      
+      <div class="container relative" style="z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="reveal">
+          <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Case Study</div>
+          <h2 style="margin-bottom: 24px; font-size: 3.5rem; color: #fff; letter-spacing: -0.02em;">Acme Logistics ROI.</h2>
+          <p style="color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6; max-width: 600px; margin-inline: auto; font-size: 1.2rem;">
+            By transitioning 500 legacy vehicles to the FleetAxis architecture, Acme Logistics reduced unplanned downtime by 41% and lowered fuel fraud to zero.
+          </p>
+          <a href="#" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.1rem; background: #fff; color: #000; border-color: #fff;">Read Full Case Study</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: CTA -->
+    <section class="section" style="padding: 0; background: var(--bg-surface-2); border-top: 1px solid var(--border-color);">
+      <div class="grid" style="grid-template-columns: 1fr 1fr; align-items: stretch;">
+        <div class="reveal" style="padding: 120px 5vw; display: flex; flex-direction: column; justify-content: center;">
+          <div class="label-mini" style="margin-bottom: 24px;">Deploy FleetAxis</div>
+          <h2 class="display-2" style="margin-bottom: 24px; font-size: 3.5rem;">Eradicate downtime.</h2>
+          <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 500px; line-height: 1.6;">
+            By integrating directly into your vehicle's OBD-II port, we turn mechanical failure into a predictable, mathematically solvable equation. Start leveraging the data you already own.
+          </p>
+          <div>
+            <a href="pricing.html" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.1rem;">View Economics</a>
+          </div>
+        </div>
+        <div class="reveal delay-1" style="display: flex; align-items: stretch; justify-content: center;">
+          <div class="img-placeholder" style="width: 100%; height: 100%; min-height: 500px; border: none; border-left: 1px solid var(--border-color); border-radius: 0; background: rgba(0, 240, 255, 0.02); padding: 0; overflow: hidden;">
+            <img src="images/command-map.png" alt="Command Center Node Map" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (Preserved Enhanced Version) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col" style="max-width: 280px;">
+          <a href="index.html" class="logo" style="margin-bottom: 16px;"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+            Transform your fleet's trajectory with our vertically integrated mobility infrastructure and telemetry backbone.
+          </p>
+          <div class="social-links" style="margin-top: 16px;">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="#" class="social-icon" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="catalog.html">Fleet Inventory</a></li>
+            <li><a href="pricing.html">Economics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Reach Out</h6>
+          <ul class="contact-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>+1 (800) 555-0198</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:systems@fleetaxis.com">systems@fleetaxis.com</a>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span style="line-height: 1.6;">100 Logistics Way<br>San Francisco, CA 94105</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div>&copy; 2026 FleetAxis Systems. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

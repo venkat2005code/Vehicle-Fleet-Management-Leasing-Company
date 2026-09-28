@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economics | FleetAxis</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Pricing Bespoke Styles */
+    .pricing-header { padding-top: calc(var(--header-h) + 120px); padding-bottom: 80px; }
+    .lead-text { font-size: 1.25rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 32px; font-weight: 300; }
+
+    /* S2: Modeler */
+    .modeler-container { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: var(--r-xl); padding: 80px; backdrop-filter: blur(20px); position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .modeler-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent); }
+    .cost-huge { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 5rem; font-weight: 300; line-height: 1; color: var(--text-base); margin-bottom: 8px; letter-spacing: -0.05em; }
+
+    /* S3: Volume Scaling Step Chart */
+    .volume-scale { display: flex; align-items: flex-end; gap: 8px; height: 300px; padding: 40px 0; border-bottom: 1px solid var(--border-color); }
+    .vol-step { flex: 1; background: var(--bg-surface-2); border: 1px solid var(--border-color); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 24px; transition: background 0.3s; }
+    .vol-step:hover { background: var(--bg-surface); border-color: var(--accent-cyan); }
+    .vol-step:nth-child(1) { height: 100%; }
+    .vol-step:nth-child(2) { height: 80%; }
+    .vol-step:nth-child(3) { height: 60%; }
+    .vol-step:nth-child(4) { height: 40%; background: var(--accent-cyan); color: #000; border: none; }
+
+    /* S4: Architecture Grid */
+    .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); margin-top: 40px; }
+    .arch-cell { background: var(--bg-surface); padding: 40px; }
+    .arch-cell h4 { font-size: 1.25rem; margin-bottom: 12px; }
+    .arch-cell p { color: var(--text-muted); line-height: 1.5; font-size: 0.95rem; }
+
+    /* S5: Hardware Addons List */
+    .addon-list { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+    .addon-item { display: flex; justify-content: space-between; align-items: center; padding: 32px; border: 1px solid var(--border-color); background: var(--bg-surface); }
+    .addon-item p { color: var(--text-muted); line-height: 1.6; }
+    
+    /* S6: ROI Bars */
+    .roi-container { padding: 120px 0; }
+    .roi-bar-wrapper { margin-bottom: 40px; }
+    .roi-bar { height: 60px; background: var(--bg-surface-2); border: 1px solid var(--border-color); position: relative; overflow: hidden; display: flex; align-items: center; padding: 0 24px; font-family: 'Plus Jakarta Sans'; font-size: 1.5rem; }
+    .roi-fill { position: absolute; left: 0; top: 0; bottom: 0; z-index: 1; }
+    
+    /* S7: FAQ */
+    .faq-item { border-bottom: 1px solid var(--border-color); padding: 32px 0; }
+    .faq-q { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; color: var(--text-base); margin-bottom: 16px; }
+    .faq-a { color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; }
+    
+    @media (max-width: 900px) {
+      .volume-scale { flex-direction: column; height: auto; gap: 16px; padding: 24px 0; }
+      .vol-step { height: auto !important; padding: 24px; text-align: center; }
+      .arch-grid { grid-template-columns: 1fr; }
+      .addon-item { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .roi-bar { font-size: 1.1rem; }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+      <nav class="nav">
+        <div class="nav-item">
+          <a href="#" class="nav-link">Architecture</a>
+          <div class="dropdown">
+            <a href="index.html" class="dropdown-item">Home 1 (Cinematic)</a>
+            <a href="home2.html" class="dropdown-item">Home 2 (Swiss Grid)</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="services.html" class="nav-link">Capabilities</a></div>
+        <div class="nav-item"><a href="catalog.html" class="nav-link">Fleet Inventory</a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link active">Economics</a></div>
+        <div class="nav-item">
+          <a href="login.html" class="nav-link">Terminal</a>
+          <div class="dropdown">
+            <a href="dashboard-user.html" class="dropdown-item">User Dashboard</a>
+            <a href="dashboard-admin.html" class="dropdown-item">Admin Dashboard</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-controls">
+        <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
+        <div class="dir-toggle" id="dirToggle">LTR</div>
+        <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- S1: HERO -->
+    <section class="pricing-header" style="position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center; justify-content: center; background: #000;">
+      <!-- Background Image -->
+      <div style="position: absolute; inset: 0; background: url('images/pricing-hero.png') center/cover no-repeat; opacity: 0.5; z-index: 1; filter: brightness(0.6);"></div>
+      
+      <div class="container relative" style="z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="reveal">
+          <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Financial Models</div>
+          <h1 class="display-1" style="margin-bottom: 24px; color: #fff;">Transparent<br>Leverage.</h1>
+          <p class="lead-text" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.8);">
+            We do not use rigid tiers or opaque pricing structures. Our platform fee scales linearly with your active node count.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- S2: CORE MODELER -->
+    <section>
+      <div class="container">
+        <div class="modeler-container reveal">
+          <div>
+            <div class="label-mini" style="margin-bottom: 16px;">Base Infrastructure Fee</div>
+            <div class="cost-huge">$38</div>
+            <div class="font-mono text-xs text-muted">USD / VEHICLE NODE / MONTH</div>
+            <div style="margin-top: 40px;"><a href="#" class="btn btn-primary" style="padding: 16px 48px;">Initialize Architecture</a></div>
+          </div>
+          <div>
+            <h3 style="font-size: 2rem; margin-bottom: 24px;">What's included?</h3>
+            <p class="lead-text">This single fee provides total access to our telemetry backbone, predictive algorithms, and the financial ledger for a single vehicle.</p>
+            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px;">
+              <li style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span style="color: var(--text-base); font-size: 1.1rem;">Unlimited OBD-II Ingestion</span>
+              </li>
+              <li style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span style="color: var(--text-base); font-size: 1.1rem;">Unlimited API GraphQL Queries</span>
+              </li>
+              <li style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span style="color: var(--text-base); font-size: 1.1rem;">Automated Fuel Reconciliation</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S3: VOLUME SCALING -->
+    <section class="section">
+      <div class="container">
+        <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 24px;">Enterprise Volume Curve.</h2>
+        <p class="lead-text reveal" style="max-width: 600px;">As your deployed node count increases, your per-node cost mathematically decreases.</p>
+        
+        <div class="volume-scale reveal delay-1">
+          <div class="vol-step">
+            <div class="font-jakarta" style="font-size: 2rem;">$38</div>
+            <div class="font-mono text-xs" style="margin-top: 8px;">1-49 Nodes</div>
+          </div>
+          <div class="vol-step">
+            <div class="font-jakarta" style="font-size: 2rem;">$34</div>
+            <div class="font-mono text-xs" style="margin-top: 8px;">50-199 Nodes</div>
+          </div>
+          <div class="vol-step">
+            <div class="font-jakarta" style="font-size: 2rem;">$29</div>
+            <div class="font-mono text-xs" style="margin-top: 8px;">200-499 Nodes</div>
+          </div>
+          <div class="vol-step">
+            <div class="font-jakarta" style="font-size: 2rem;">Custom</div>
+            <div class="font-mono text-xs" style="margin-top: 8px;">500+ Nodes</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S4: INCLUDED ARCHITECTURE -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 24px;">Base Protocol.</h2>
+        <div class="arch-grid reveal delay-1">
+          <div class="arch-cell"><h4>Telemetry Polling</h4><p>Real-time (10ms) GPS and OBD-II streams pushed directly to your console.</p></div>
+          <div class="arch-cell"><h4>Data Retention</h4><p>Perpetual, encrypted storage of all historical routes and maintenance logs.</p></div>
+          <div class="arch-cell"><h4>API Access</h4><p>Unlimited REST/GQL endpoints for direct ingestion into SAP or Oracle.</p></div>
+          <div class="arch-cell"><h4>Service Nodes</h4><p>Access to 14,000+ certified maintenance locations with pre-authorized billing.</p></div>
+          <div class="arch-cell"><h4>Financial Exports</h4><p>Automated ledger reconciliation for fuel, charging, and tolls.</p></div>
+          <div class="arch-cell"><h4>Driver Profiles</h4><p>Unlimited operator accounts and mobile application access.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S5: HARDWARE ADD-ONS -->
+    <section class="section" style="background: var(--bg-surface);">
+      <div class="container">
+        <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 24px;">Physical Upgrades.</h2>
+        <p class="lead-text reveal" style="max-width: 600px;">Certain logistical operations require specialized hardware arrays.</p>
+        
+        <div class="addon-list reveal delay-1">
+          <div class="addon-item">
+            <div style="flex: 1;"><h4 style="font-size: 1.25rem; margin-bottom: 8px;">AI Dashcam Module</h4><p style="margin-bottom: 0;">Inward and outward facing cameras with neural collision detection and driver fatigue monitoring.</p></div>
+            <div class="font-mono text-xs" style="color: var(--accent-cyan); padding-left: 40px; font-size: 1.1rem;">+$12 / NODE</div>
+          </div>
+          <div class="addon-item">
+            <div style="flex: 1;"><h4 style="font-size: 1.25rem; margin-bottom: 8px;">Cold-Chain Sensors</h4><p style="margin-bottom: 0;">Multi-zone refrigeration temperature logging to ensure FDA compliance during transit.</p></div>
+            <div class="font-mono text-xs" style="color: var(--accent-cyan); padding-left: 40px; font-size: 1.1rem;">+$8 / NODE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S6: ROI & PROTOCOL LOGIC -->
+    <section class="section" style="padding-bottom: 120px;">
+      <div class="container">
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 80px;">
+          <div>
+            <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 40px;">Cost of Ownership</h2>
+            <div class="roi-bar-wrapper reveal delay-1">
+              <div class="font-mono text-xs text-muted" style="margin-bottom: 8px;">LEGACY FLEET MANAGEMENT (Avg. 100 Nodes / Year)</div>
+              <div class="roi-bar">
+                <div class="roi-fill" style="width: 100%; background: var(--text-faint);"></div>
+                <span style="position: relative; z-index: 2; color: var(--bg-base);">$1,450,000</span>
+              </div>
+            </div>
+            <div class="roi-bar-wrapper reveal delay-2">
+              <div class="font-mono text-xs text-muted" style="margin-bottom: 8px;">FLEETAXIS PROTOCOL (Avg. 100 Nodes / Year)</div>
+              <div class="roi-bar" style="border-color: var(--accent-cyan);">
+                <div class="roi-fill" style="width: 82%; background: var(--accent-cyan);"></div>
+                <span style="position: relative; z-index: 2; color: #000;">$1,189,000</span>
+              </div>
+            </div>
+          </div>
+          <div class="reveal delay-1">
+            <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Protocol Logic</h2>
+            <div class="faq-item" style="padding-top: 0;">
+              <div class="faq-q" style="font-size: 1.25rem;">Are vehicle lease costs included in the $38 fee?</div>
+              <p class="faq-a" style="font-size: 1rem;">No. The fee covers software infrastructure and telemetry tracking. The physical asset lease varies based on hardware.</p>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" style="font-size: 1.25rem;">Can we integrate existing vehicles?</div>
+              <p class="faq-a" style="font-size: 1rem;">Yes. We ship proprietary OBD-II hardware for a one-time $150 provisioning fee per node.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S7: CTA -->
+    <section class="section" style="padding: 0; background: var(--bg-surface-2); border-top: 1px solid var(--border-color);">
+      <div class="grid" style="grid-template-columns: 1.2fr 1fr; align-items: stretch;">
+        <div class="reveal delay-1" style="display: flex; align-items: stretch; justify-content: center; border-right: 1px solid var(--border-color);">
+          <div class="img-placeholder" style="width: 100%; height: 100%; min-height: 500px; border: none; border-radius: 0; background: transparent; padding: 0; overflow: hidden;">
+            <img src="images/pricing-dashboard.png" alt="Live Financial Dashboard showing capital allocation" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+        <div class="reveal" style="padding: 120px 5vw; display: flex; flex-direction: column; justify-content: center;">
+          <div class="label-mini" style="margin-bottom: 24px;">Initialize Architecture</div>
+          <h2 class="display-2" style="margin-bottom: 24px; font-size: 3.5rem;">Stop leaking capital.</h2>
+          <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 500px; line-height: 1.6;">
+            Fragmented systems and manual expense reports are costing you an average of $2,600 per vehicle annually. Centralize your financial protocol today.
+          </p>
+          <div>
+            <a href="login.html" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.1rem;">Access Terminal</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col" style="max-width: 280px;">
+          <a href="index.html" class="logo" style="margin-bottom: 16px;"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+            Transform your fleet's trajectory with our vertically integrated mobility infrastructure and telemetry backbone.
+          </p>
+          <div class="social-links" style="margin-top: 16px;">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="#" class="social-icon" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="catalog.html">Fleet Inventory</a></li>
+            <li><a href="pricing.html">Economics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Reach Out</h6>
+          <ul class="contact-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>+1 (800) 555-0198</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:systems@fleetaxis.com">systems@fleetaxis.com</a>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span style="line-height: 1.6;">100 Logistics Way<br>San Francisco, CA 94105</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div>&copy; 2026 FleetAxis Systems. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

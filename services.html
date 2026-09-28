@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capabilities | FleetAxis</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Services Specific Bespoke Styles */
+    .services-hero { padding-top: calc(var(--header-h) + 120px); padding-bottom: 120px; border-bottom: 1px solid var(--border-color); position: relative; }
+    
+    .capability-block { padding: 100px 0; border-bottom: 1px solid var(--border-color); position: relative; }
+    
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+    .comp-table th, .comp-table td { padding: 24px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    .comp-table th { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text-base); }
+    .comp-table td { color: var(--text-muted); }
+
+    .lead-text { font-size: 1.25rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 32px; font-weight: 300; }
+
+    /* S4: Timeline */
+    .maint-timeline { display: flex; align-items: flex-start; justify-content: space-between; margin-top: 40px; position: relative; }
+    .maint-timeline::before { content: ''; position: absolute; top: 24px; left: 0; right: 0; height: 1px; background: var(--border-color); z-index: 1; }
+    .timeline-node { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-surface); border: 1px solid var(--border-color); position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; font-family: 'SFMono-Regular', monospace; font-size: 0.75rem; color: var(--text-muted); }
+    .timeline-node.active { border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: 0 0 15px var(--accent-cyan-glow); }
+    .timeline-step { display: flex; flex-direction: column; align-items: center; text-align: center; width: 180px; gap: 24px; }
+
+    /* S6: Simulated UI */
+    .ui-sim { border: 1px solid var(--border-color); border-radius: var(--r-xl); width: 320px; height: 600px; background: var(--bg-surface); margin: 0 auto; padding: 24px; display: flex; flex-direction: column; position: relative; }
+    .ui-sim::before { content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background: var(--border-color); border-radius: 4px; }
+    .ui-module { background: var(--bg-surface-2); height: 80px; border-radius: var(--r-sm); margin-bottom: 16px; border: 1px solid var(--border-color); }
+    .ui-module:nth-child(2) { height: 120px; }
+    
+    .tech-list { list-style: none; padding: 0; margin-top: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .tech-list li { display: flex; align-items: flex-start; gap: 12px; color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; }
+    .tech-list li svg { flex-shrink: 0; margin-top: 4px; }
+    
+    @media (max-width: 900px) {
+      .maint-timeline { flex-direction: column; gap: 40px; }
+      .maint-timeline::before { display: none; }
+      .timeline-step { flex-direction: row; text-align: left; width: 100%; align-items: flex-start; }
+      .comp-table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+      <nav class="nav">
+        <div class="nav-item">
+          <a href="#" class="nav-link">Architecture</a>
+          <div class="dropdown">
+            <a href="index.html" class="dropdown-item">Home 1 (Cinematic)</a>
+            <a href="home2.html" class="dropdown-item">Home 2 (Swiss Grid)</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="services.html" class="nav-link active">Capabilities</a></div>
+        <div class="nav-item"><a href="catalog.html" class="nav-link">Fleet Inventory</a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link">Economics</a></div>
+        <div class="nav-item">
+          <a href="login.html" class="nav-link">Terminal</a>
+          <div class="dropdown">
+            <a href="dashboard-user.html" class="dropdown-item">User Dashboard</a>
+            <a href="dashboard-admin.html" class="dropdown-item">Admin Dashboard</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-controls">
+        <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
+        <div class="dir-toggle" id="dirToggle">LTR</div>
+        <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- S1: HERO -->
+    <section class="services-hero" style="position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center; justify-content: center; background: #000;">
+      <!-- Background Image -->
+      <div style="position: absolute; inset: 0; background: url('images/services-hero.png') center/cover no-repeat; opacity: 0.5; z-index: 1; filter: brightness(0.6);"></div>
+      
+      <div class="container relative" style="z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="reveal">
+          <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Platform Capabilities</div>
+          <h1 class="display-1" style="margin-bottom: 24px; color: #fff;">Deep<br>Integration.</h1>
+          <p class="lead-text" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.8);">
+            Explore the technical mechanics of the FleetAxis architecture. From algorithmic vehicle procurement to autonomous financial ledgers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- S2: CAPABILITY 1 (Procurement) -->
+    <section class="section capability-block">
+      <div class="container">
+        <div class="reveal" style="max-width: 900px; margin: 0 auto;">
+          <h2 style="font-size: 3rem; margin-bottom: 24px;">Algorithmic Procurement.</h2>
+          <p class="lead-text">We mathematically eliminate human bias from vehicle selection.</p>
+          
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+            <div>
+              <ul class="tech-list">
+                <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Historical Route Analysis</li>
+                <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Payload Weight Calculation</li>
+                <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Climate & Terrain Modeling</li>
+              </ul>
+            </div>
+            <div class="img-placeholder" style="height: 200px; padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/services-comparison.png" alt="UI Dashboard showing vehicle comparison" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S3: CAPABILITY 2 (Telemetry) -->
+    <section class="section capability-block" style="background: var(--bg-surface);">
+      <div class="container">
+        <div class="reveal" style="max-width: 900px; margin: 0 auto;">
+          <h2 style="font-size: 3rem; margin-bottom: 24px;">Millisecond Telemetry.</h2>
+          <p class="lead-text">Native OBD-II hardware pushing high-frequency engine metrics.</p>
+          
+          <table class="comp-table">
+            <tr><th>Data Stream</th><th>Frequency</th><th>Use Case</th></tr>
+            <tr><td>Spatial GPS Array</td><td>100ms</td><td>Live tracking & geo-fencing</td></tr>
+            <tr><td>Engine Diagnostics (OBD)</td><td>500ms</td><td>Predictive mechanical failure</td></tr>
+            <tr><td>Inertial G-Force</td><td>10ms</td><td>Collision & hard-braking detection</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- S4: CAPABILITY 3 (Maintenance) -->
+    <section class="section capability-block">
+      <div class="container">
+        <div class="reveal" style="max-width: 900px; margin: 0 auto;">
+          <h2 style="font-size: 3rem; margin-bottom: 24px;">Predictive Maintenance.</h2>
+          <p class="lead-text">Algorithms detect failure signatures before catastrophic breakdown occurs.</p>
+          
+          <div class="maint-timeline">
+            <div class="timeline-step">
+              <div class="timeline-node">T-14</div>
+              <h4 style="font-size: 1.1rem;">Anomaly Detected</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">Voltage fluctuation logged by OBD.</p>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-node active">T-07</div>
+              <h4 style="font-size: 1.1rem; color: var(--accent-cyan);">Algorithm Triggers</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">Alert routed to fleet manager.</p>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-node">T-02</div>
+              <h4 style="font-size: 1.1rem;">Bay Scheduled</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">Vehicle routed to nearest partner.</p>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-node">T-00</div>
+              <h4 style="font-size: 1.1rem;">Failure Averted</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">Part replaced under warranty.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S5: CAPABILITY 4 (Financial Ledger) -->
+    <section class="section capability-block" style="background: var(--bg-surface);">
+      <div class="container">
+        <div class="reveal" style="max-width: 900px; margin: 0 auto;">
+          <h2 style="font-size: 3rem; margin-bottom: 24px;">Tokenized Financials.</h2>
+          <p class="lead-text">Eliminate manual expense reports and fuel fraud permanently.</p>
+          
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 40px; align-items: center;">
+            <div>
+              <ul class="tech-list">
+                <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Mobile App Auth (Biometric)</li>
+                <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Direct Pump Integration</li>
+                <li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Automated ERP Reconciliation</li>
+              </ul>
+            </div>
+            <div class="ui-sim">
+              <div style="text-align: center; margin: 20px 0 40px;"><div style="width: 40px; height: 40px; background: var(--accent-cyan); border-radius: 50%; display: inline-block;"></div></div>
+              <div class="ui-module"></div>
+              <div class="ui-module"></div>
+              <div class="ui-module"></div>
+              <div class="img-placeholder" style="margin-top: auto; height: 100px; padding: 0; overflow: hidden; border: none; background: transparent;">
+                <img src="images/services-map.png" alt="UI Map" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S6: INTEGRATION SPECS -->
+    <section class="section">
+      <div class="container text-center reveal">
+        <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Integration Specifications</h2>
+        <p class="lead-text" style="max-width: 600px; margin: 0 auto 40px;">Our API endpoints are fully documented and ready for deployment.</p>
+        <div class="img-placeholder" style="height: 300px; max-width: 800px; margin: 0 auto; padding: 0; overflow: hidden; border: none; background: transparent;">
+          <img src="images/services-code.png" alt="Developer Documentation Code Block" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+        </div>
+      </div>
+    </section>
+
+    <!-- S7: CTA -->
+    <section class="section" style="padding: 120px 0; background: var(--bg-surface-2); position: relative; overflow: hidden;">
+      <div class="container relative z-10">
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+          <div class="reveal">
+            <h2 style="font-size: 3.5rem; margin-bottom: 24px; line-height: 1.1;">Seize operational control.</h2>
+            <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 450px; line-height: 1.6;">
+              Stop relying on disjointed third-party software and manual dispatch. Deploy a natively integrated hardware and software stack today.
+            </p>
+            <a href="login.html" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.1rem;">Access Terminal</a>
+          </div>
+          <div class="reveal delay-1">
+            <div class="img-placeholder" style="height: 350px; border: 1px solid var(--accent-cyan); background: rgba(0, 240, 255, 0.05); transform: perspective(1000px) rotateY(-15deg); box-shadow: -20px 20px 60px rgba(0,0,0,0.5); padding: 0; overflow: hidden;">
+              <img src="images/services-dashboard.png" alt="Isometric Dashboard Interface" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col" style="max-width: 280px;">
+          <a href="index.html" class="logo" style="margin-bottom: 16px;"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+            Transform your fleet's trajectory with our vertically integrated mobility infrastructure and telemetry backbone.
+          </p>
+          <div class="social-links" style="margin-top: 16px;">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="#" class="social-icon" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="catalog.html">Fleet Inventory</a></li>
+            <li><a href="pricing.html">Economics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Reach Out</h6>
+          <ul class="contact-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>+1 (800) 555-0198</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:systems@fleetaxis.com">systems@fleetaxis.com</a>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span style="line-height: 1.6;">100 Logistics Way<br>San Francisco, CA 94105</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div>&copy; 2026 FleetAxis Systems. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

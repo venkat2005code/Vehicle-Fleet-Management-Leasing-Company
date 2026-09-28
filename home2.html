@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FleetAxis | Data Intelligence</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: var(--bg-surface); }
+    .ticker-wrapper { border-bottom: 1px solid var(--border-color); border-top: 1px solid var(--border-color); overflow: hidden; white-space: nowrap; padding: 12px 0; margin-top: var(--header-h); display: flex; }
+    .ticker { display: inline-flex; animation: ticker 40s linear infinite; }
+    .ticker-item { font-family: 'SFMono-Regular', monospace; font-size: 0.85rem; text-transform: uppercase; margin-right: 40px; color: var(--text-muted); }
+    .ticker-item strong { color: var(--text-base); }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+    /* S1: Hero */
+    .editorial-hero { padding: 120px 5vw; border-bottom: 1px solid var(--border-color); }
+    .lead-text { font-size: 1.25rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 32px; font-weight: 300; max-width: 600px; }
+    
+    /* S2 & S3: Bento Grid Container */
+    .swiss-grid-container { padding: 5vw; border-bottom: 1px solid var(--border-color); }
+    .grid-swiss { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
+    .grid-swiss > div { background: var(--bg-surface); padding: 60px 40px; display: flex; flex-direction: column; transition: background 0.3s; }
+    .grid-swiss > div:hover { background: var(--bg-surface-2); }
+    .col-span-12 { grid-column: span 12; } .col-span-8 { grid-column: span 8; } .col-span-6 { grid-column: span 6; } .col-span-4 { grid-column: span 4; }
+    @media (max-width: 1024px) { .col-span-8, .col-span-6, .col-span-4 { grid-column: span 12; } }
+    
+    /* Interactive Block */
+    .slider { -webkit-appearance: none; width: 100%; height: 2px; background: var(--border-color); outline: none; margin: 40px 0; }
+    .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: var(--text-base); cursor: pointer; border-radius: 50%; }
+
+    /* S4: Brutalist Features List */
+    .features-list { display: flex; flex-direction: column; }
+    .f-item { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 40px; padding: 40px 5vw; border-bottom: 1px solid var(--border-color); transition: background 0.3s; align-items: stretch; }
+    .f-item:hover { background: var(--bg-surface-2); }
+    
+    /* S5: Abstract Global Map */
+    .global-map-section { padding: 120px 5vw; border-bottom: 1px solid var(--border-color); background: var(--text-base); color: var(--bg-base); position: relative; overflow: hidden; }
+    .css-map { position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px; opacity: 0.3; pointer-events: none; }
+
+    /* S6: Security & Compliance */
+    .security-section { padding: 120px 5vw; border-bottom: 1px solid var(--border-color); }
+    .sec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 80px; }
+    .sec-card h4 { font-size: 1.25rem; margin-bottom: 16px; }
+    .sec-card p { color: var(--text-muted); line-height: 1.6; }
+
+    /* S7: Stark CTA */
+    .stark-cta { padding: 160px 5vw; text-align: center; }
+    
+    @media (max-width: 900px) {
+      .f-item { grid-template-columns: 1fr; gap: 24px; }
+      .sec-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner" style="max-width: 100%;">
+      <a href="index.html" class="logo"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+      <nav class="nav">
+        <div class="nav-item">
+          <a href="#" class="nav-link active">Architecture</a>
+          <div class="dropdown">
+            <a href="index.html" class="dropdown-item">Home 1 (Cinematic)</a>
+            <a href="home2.html" class="dropdown-item">Home 2 (Swiss Grid)</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="services.html" class="nav-link">Capabilities</a></div>
+        <div class="nav-item"><a href="catalog.html" class="nav-link">Fleet Inventory</a></div>
+        <div class="nav-item"><a href="pricing.html" class="nav-link">Economics</a></div>
+        <div class="nav-item">
+          <a href="login.html" class="nav-link">Terminal</a>
+          <div class="dropdown">
+            <a href="dashboard-user.html" class="dropdown-item">User Dashboard</a>
+            <a href="dashboard-admin.html" class="dropdown-item">Admin Dashboard</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-controls">
+        <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
+        <div class="dir-toggle" id="dirToggle">LTR</div>
+        <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DATA TICKER -->
+  <div class="ticker-wrapper">
+    <div class="ticker">
+      <div class="ticker-item">SYS_STAT: <strong>OPTIMAL</strong></div>
+      <div class="ticker-item">ACTIVE_NODES: <strong>41,209</strong></div>
+      <div class="ticker-item">LATENCY: <strong>12ms</strong></div>
+      <div class="ticker-item">OBD_INGESTION_RATE: <strong>2M/s</strong></div>
+      <div class="ticker-item">FUEL_RECON_SAVINGS (YTD): <strong>$4.2M</strong></div>
+      <div class="ticker-item">SYS_STAT: <strong>OPTIMAL</strong></div>
+      <div class="ticker-item">ACTIVE_NODES: <strong>41,209</strong></div>
+      <div class="ticker-item">LATENCY: <strong>12ms</strong></div>
+      <div class="ticker-item">OBD_INGESTION_RATE: <strong>2M/s</strong></div>
+      <div class="ticker-item">FUEL_RECON_SAVINGS (YTD): <strong>$4.2M</strong></div>
+    </div>
+  </div>
+
+  <main>
+    <!-- S1: EDITORIAL HERO -->
+    <section class="editorial-hero" style="position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center; justify-content: center; background: #000;">
+      <!-- Background Image -->
+      <div style="position: absolute; inset: 0; background: url('images/home2-hero.png') center/cover no-repeat; opacity: 0.5; z-index: 1; filter: brightness(0.6);"></div>
+      
+      <div class="container relative" style="z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="reveal">
+          <h1 class="display-1" style="font-size: 5.5rem; letter-spacing: -0.05em; margin-bottom: 24px; color: #fff;">Logistics.<br>Refined.</h1>
+          <p class="lead-text" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.8);">
+            Enterprise fleet management designed for scale. Real-time telemetry, automated ledgers, and algorithmic vehicle acquisition.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- S2 & S3: THE SWISS BENTO GRID -->
+    <section class="swiss-grid-container">
+      <div class="grid-swiss reveal">
+        <!-- Main Highlight -->
+        <div class="col-span-8">
+          <div class="label-mini" style="margin-bottom: 16px;">Telemetry Core</div>
+          <h2 style="font-size: 3rem; margin-bottom: 24px; max-width: 500px;">12ms data ingestion.</h2>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px; max-width: 400px;">
+            Our proprietary OBD-II hardware streams raw engine metrics and spatial coordinates directly to your dashboard in real-time.
+          </p>
+          <div class="img-placeholder" style="height: 300px; border-radius: 0; margin-top: auto; padding: 0; overflow: hidden; border: none; background: transparent;">
+            <img src="images/home2-telemetry.png" alt="Telemetry Dashboard UI" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+        
+        <!-- Interactive Node Slider -->
+        <div class="col-span-4 lease-calc-block">
+          <div class="label-mini" style="margin-bottom: 16px;">Volume Economics</div>
+          <h3 style="font-size: 2rem; margin-bottom: 24px;">Calculate Scale</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 40px;">Adjust active node volume to view infrastructure pricing.</p>
+          
+          <div style="margin-top: auto;">
+            <div class="flex" style="justify-content: space-between; align-items: baseline;">
+              <span class="font-mono text-xs text-muted" id="nodeCountVal">100 Nodes</span>
+              <span style="font-family: 'Plus Jakarta Sans'; font-size: 2.5rem;" id="priceVal">$34</span>
+            </div>
+            <input type="range" min="1" max="500" value="100" class="slider" id="nodeSlider">
+          </div>
+        </div>
+
+        <!-- 3-Column Split -->
+        <div class="col-span-4">
+          <h4 style="font-size: 1.5rem; margin-bottom: 16px;">Procurement</h4>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 32px;">Algorithmic vehicle selection based on payload and climate.</p>
+          <div class="img-placeholder" style="height: 200px; border-radius: 0; margin-top: auto; padding: 0; overflow: hidden; border: none; background: transparent;">
+            <img src="images/home2-sedan.png" alt="Sedan" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+        
+        <div class="col-span-4">
+          <h4 style="font-size: 1.5rem; margin-bottom: 16px;">Financial Ledgers</h4>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 32px;">Tokenized fuel payments directly at the pump to eliminate fraud.</p>
+          <div class="img-placeholder" style="height: 200px; border-radius: 0; margin-top: auto; padding: 0; overflow: hidden; border: none; background: transparent;">
+            <img src="images/home2-mobile.png" alt="Mobile App" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+        
+        <div class="col-span-4">
+          <h4 style="font-size: 1.5rem; margin-bottom: 16px;">Maintenance</h4>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 32px;">Predictive engine diagnostics trigger automated repair workflows.</p>
+          <div class="img-placeholder" style="height: 200px; border-radius: 0; margin-top: auto; padding: 0; overflow: hidden; border: none; background: transparent;">
+            <img src="images/home2-mechanic.png" alt="Mechanic Bay" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S4: FEATURES LIST (Brutalist) -->
+    <section>
+      <div class="features-list">
+        <div class="f-item reveal">
+          <div><h2 class="font-mono" style="font-size: 1.25rem;">01</h2></div>
+          <div><h3 style="font-size: 2rem;">Hardware<br>Agnostic</h3></div>
+          <div style="display: flex; gap: 40px;">
+            <p style="color: var(--text-muted); line-height: 1.6; flex: 1;">Integrate our telemetry nodes into any existing vehicle model. No vendor lock-in, total architectural freedom.</p>
+            <div class="img-placeholder" style="flex: 1; height: 160px; border-radius: 0; padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/home2-hardware.png" alt="Hardware Node" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+        </div>
+        <div class="f-item reveal delay-1">
+          <div><h2 class="font-mono" style="font-size: 1.25rem;">02</h2></div>
+          <div><h3 style="font-size: 2rem;">GraphQL<br>API Backbone</h3></div>
+          <div style="display: flex; gap: 40px;">
+            <p style="color: var(--text-muted); line-height: 1.6; flex: 1;">Pipe our normalized telemetry and financial data directly into SAP, Oracle, or your custom internal ERP.</p>
+            <div class="img-placeholder" style="flex: 1; height: 160px; border-radius: 0; padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/home2-code.png" alt="Code snippet" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+        </div>
+        <div class="f-item reveal delay-2">
+          <div><h2 class="font-mono" style="font-size: 1.25rem;">03</h2></div>
+          <div><h3 style="font-size: 2rem;">Automated<br>Compliance</h3></div>
+          <div style="display: flex; gap: 40px;">
+            <p style="color: var(--text-muted); line-height: 1.6; flex: 1;">Real-time logging of driver hours, emission standards, and safety compliance. Audit-ready out of the box.</p>
+            <div class="img-placeholder" style="flex: 1; height: 160px; border-radius: 0; padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/home2-compliance.png" alt="Compliance UI" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S5: GLOBAL SCALE (Inverted) -->
+    <section class="global-map-section">
+      <div class="css-map"></div>
+      <div class="reveal relative z-10" style="max-width: 800px;">
+        <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(150,150,150,0.5); color: var(--bg-base);">Global Reach</div>
+        <h2 style="font-size: 4rem; letter-spacing: -0.05em; line-height: 1.1; margin-bottom: 40px; color: var(--bg-base);">Operating across 14,000 service jurisdictions.</h2>
+        <p style="font-size: 1.25rem; opacity: 0.8; max-width: 500px; line-height: 1.6; color: var(--bg-base);">Our infrastructure connects your vehicles to a massive network of pre-authorized maintenance bays and fueling stations nationwide.</p>
+      </div>
+    </section>
+
+    <!-- S6: SECURITY & COMPLIANCE -->
+    <section class="security-section">
+      <div class="container" style="max-width: 100%;">
+        <div class="grid" style="grid-template-columns: 1fr 2fr; gap: 80px;">
+          <div class="reveal">
+            <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Enterprise Grade<br>Security.</h2>
+            <div class="img-placeholder" style="height: 200px; border-radius: 0; border-color: var(--accent-cyan); margin-top: 40px; padding: 0; overflow: hidden; border: none; background: transparent;">
+              <img src="images/home2-security.png" alt="Abstract Encryption Graphic" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+            </div>
+          </div>
+          <div class="sec-grid reveal delay-1">
+            <div class="sec-card">
+              <h4>SOC 2 Type II</h4>
+              <p>Audited annually by independent third parties to ensure data integrity and confidentiality.</p>
+            </div>
+            <div class="sec-card">
+              <h4>End-to-End Encryption</h4>
+              <p>AES-256 encryption at rest and TLS 1.3 in transit for all telemetry streams.</p>
+            </div>
+            <div class="sec-card">
+              <h4>RBAC Constraints</h4>
+              <p>Granular role-based access control for every user in your organization.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S7: STARK CTA -->
+    <section class="stark-cta" style="padding: 120px 5vw; background: var(--bg-surface-2); text-align: left; display: block;">
+      <div class="grid" style="grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center;">
+        <div class="reveal">
+          <h2 style="font-size: 4.5rem; letter-spacing: -0.05em; margin-bottom: 24px; line-height: 1.1; color: var(--text-base);">Join 40k+<br>Active Nodes.</h2>
+          <p style="font-size: 1.25rem; margin-bottom: 40px; max-width: 400px; line-height: 1.6; color: var(--text-muted);">
+            Stop managing fragmented fleets. Centralize your logistics into a single, high-performance terminal.
+          </p>
+          <a href="pricing.html" class="btn" style="padding: 20px 60px; font-size: 1.1rem; border-radius: 0; background: var(--bg-surface); color: var(--text-base);">Analyze Infrastructure Costs</a>
+        </div>
+        <div class="reveal delay-1">
+          <div class="img-placeholder" style="height: 400px; border-radius: 0; border: 2px solid var(--bg-surface); background: rgba(255,255,255,0.1); padding: 0; overflow: hidden; border: none;">
+            <img src="images/home2-cta.png" alt="High-contrast Command Terminal UI" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col" style="max-width: 280px;">
+          <a href="index.html" class="logo" style="margin-bottom: 16px;"><img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark"><div>Fleet<strong>Axis</strong></div></a>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+            Transform your fleet's trajectory with our vertically integrated mobility infrastructure and telemetry backbone.
+          </p>
+          <div class="social-links" style="margin-top: 16px;">
+            <a href="#" class="social-icon" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="#" class="social-icon" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+            <a href="#" class="social-icon" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="catalog.html">Fleet Inventory</a></li>
+            <li><a href="pricing.html">Economics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h6>Reach Out</h6>
+          <ul class="contact-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>+1 (800) 555-0198</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:systems@fleetaxis.com">systems@fleetaxis.com</a>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span style="line-height: 1.6;">100 Logistics Way<br>San Francisco, CA 94105</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div>&copy; 2026 FleetAxis Systems. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Node Slider Logic
+    const slider = document.getElementById('nodeSlider');
+    const nodeVal = document.getElementById('nodeCountVal');
+    const priceVal = document.getElementById('priceVal');
+    
+    if(slider) {
+      slider.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value);
+        nodeVal.textContent = val + ' Nodes';
+        let price = 38;
+        if(val >= 50) price = 34;
+        if(val >= 200) price = 29;
+        priceVal.textContent = '$' + price;
+      });
+    }
+  </script>
+</body>
+</html>

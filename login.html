@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Terminal | FleetAxis</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      background: var(--bg-base);
+    }
+    .auth-left {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px;
+      border-right: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+    .auth-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+    }
+    
+    /* Abstract radar/sonar visual */
+    .radar {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      border: 1px solid rgba(0, 240, 255, 0.1);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .radar::before {
+      content: ''; position: absolute; inset: 100px;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 50%;
+    }
+    .radar::after {
+      content: ''; position: absolute; inset: 200px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 50%;
+    }
+    .radar-sweep {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 300px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan));
+      transform-origin: left;
+      animation: sweep 4s linear infinite;
+    }
+    @keyframes sweep { 100% { transform: rotate(360deg); } }
+
+    .auth-right {
+      flex: 0 0 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      background: var(--bg-surface);
+      position: relative;
+    }
+    
+    .terminal-box {
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .form-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-base);
+      font-family: 'SFMono-Regular', monospace;
+      font-size: 1rem;
+      padding: 12px 0;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-input:focus { border-color: var(--accent-cyan); }
+    .form-input::placeholder { color: var(--text-faint); }
+    
+    @media (max-width: 900px) {
+      body { flex-direction: column; overflow: auto; height: auto; min-height: 100vh; }
+      .auth-left { display: none; } /* Hide heavy visuals on mobile auth */
+      .auth-right { flex: 1; padding: 40px; }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+</head>
+<body>
+
+  <!-- LEFT VISUAL PANEL -->
+  <div class="auth-left">
+    <div class="auth-bg-grid"></div>
+    <div class="radar">
+      <div class="radar-sweep"></div>
+      <div class="node" style="top: 25%; left: 60%;"></div>
+      <div class="node" style="top: 70%; left: 30%; animation-delay: 1s;"></div>
+      <div class="node" style="top: 40%; left: 80%; animation-delay: 2s;"></div>
+    </div>
+    
+    <a href="index.html" class="logo" style="position: relative; z-index: 2;">
+      <img src="images/favicon.jpg" alt="FleetAxis Logo" class="brand-logomark">
+      <div>Fleet<strong>Axis</strong></div>
+    </a>
+    
+    <div style="position: relative; z-index: 2;">
+      <div class="font-mono text-xs text-muted" style="margin-bottom: 16px;">Global Network Status</div>
+      <h1 class="display-1" style="font-size: 4rem; line-height: 1; margin-bottom: 24px;">Telemetry<br>Online.</h1>
+      <p class="text-lead" style="max-width: 400px;">Access the central terminal to monitor live vehicle assets and command infrastructure.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT AUTH FORM -->
+  <div class="auth-right">
+    
+    <!-- Controls (Theme/Dir toggle for demo purposes) -->
+    <div style="position: absolute; top: 24px; right: 24px; display: flex; gap: 8px;">
+      <div class="dir-toggle" id="dirToggle" style="margin-top: 10px;">LTR</div>
+      <button class="btn-icon theme-toggle" id="themeToggle" style="width: 36px; height: 36px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg>
+      </button>
+    </div>
+
+    <div class="terminal-box reveal">
+      <div class="label-mini" style="margin-bottom: 8px;">Authentication</div>
+      <h2 style="margin-bottom: 40px;">Initialize Session</h2>
+      
+      <form action="dashboard-user.html">
+        <div style="margin-bottom: 32px;">
+          <label class="font-mono text-xs text-muted" style="display: block; margin-bottom: 8px;">ACCESS IDENTIFIER (EMAIL)</label>
+          <input type="email" class="form-input" placeholder="admin@corporation.com" required>
+        </div>
+        
+        <div style="margin-bottom: 40px;">
+          <div class="flex-between" style="margin-bottom: 8px;">
+            <label class="font-mono text-xs text-muted">SECURITY PHRASE</label>
+            <a href="#" class="font-mono text-xs" style="color: var(--accent-cyan);">RESET</a>
+          </div>
+          <input type="password" class="form-input" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: space-between;">
+          <span>Execute Login</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+        
+        <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+          <div class="font-mono text-xs text-muted" style="margin-bottom: 12px;">BYPASS FOR DEMONSTRATION</div>
+          <div class="flex" style="gap: 16px;">
+            <a href="dashboard-user.html" class="font-mono text-xs" style="color: var(--text-base); border-bottom: 1px solid var(--text-base);">LOAD CLIENT NODE</a>
+            <a href="dashboard-admin.html" class="font-mono text-xs" style="color: var(--accent-cyan); border-bottom: 1px solid var(--accent-cyan);">LOAD ADMIN NODE</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
