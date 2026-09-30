@@ -32,6 +32,15 @@
       .stat-block { border-right: none; border-bottom: 1px solid var(--border-color); }
       .stat-block:last-child { border-bottom: none; }
     }
+    @media (max-width: 480px) {
+      .integration-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .feature-card { padding: 24px; }
+      .stat-number { font-size: 2.5rem; }
+      .stat-block { padding: 24px 16px; }
+      .hero-section .flex { flex-direction: column; gap: 12px; }
+      .hero-section .flex .btn { width: 100%; justify-content: center; }
+      .lead-text { font-size: 1rem; }
+    }
   </style>
   <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
 </head>
@@ -64,9 +73,33 @@
         <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
         <div class="dir-toggle" id="dirToggle">LTR</div>
         <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- MOBILE NAV DRAWER -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav-link active">Home 1 (Cinematic)</a>
+    <a href="home2.html" class="mobile-nav-link">Home 2 (Swiss Grid)</a>
+    <a href="services.html" class="mobile-nav-link">Capabilities</a>
+    <a href="catalog.html" class="mobile-nav-link">Fleet Inventory</a>
+    <a href="pricing.html" class="mobile-nav-link">Economics</a>
+    <a href="login.html" class="mobile-nav-link">Terminal</a>
+    <a href="dashboard-user.html" class="mobile-nav-sub">User Dashboard</a>
+    <a href="dashboard-admin.html" class="mobile-nav-sub">Admin Dashboard</a>
+    <div class="mobile-nav-cta">
+      <a href="login.html" class="btn btn-primary" style="margin-bottom: 24px;">Deploy Core</a>
+      <div style="display: flex; gap: 16px; align-items: center; justify-content: center;">
+        <div class="dir-toggle">LTR</div>
+        <button class="btn-icon theme-toggle" aria-label="Toggle dark/light mode" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
   <main>
     <!-- SECTION 1: HERO (Balanced) -->
@@ -75,14 +108,14 @@
       <div class="topo-grid"></div>
       
       <div class="container relative z-10">
-        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 800px; margin: 0 auto;">
-          <div class="reveal" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 800px; margin: 0 auto;">
+          <div class="reveal" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             <div class="label-mini" style="margin-bottom: 24px;">System Architecture 2.0</div>
             <h1 class="display-1" style="margin-bottom: 24px;">Precision <br>At Scale.</h1>
             <p class="lead-text" style="max-width: 600px; margin: 0 auto 32px;">
               A unified infrastructure platform replacing fragmented corporate fleet management. Acquire vehicles, monitor telemetry, and automate ledgers—in one place.
             </p>
-            <div class="flex" style="gap: 24px; justify-content: center;">
+            <div class="flex" style="gap: 24px; justify-content: center; width: 100%; flex-wrap: wrap;">
               <a href="services.html" class="btn btn-primary">Explore Platform</a>
               <a href="pricing.html" class="btn btn-outline">Analyze Economics</a>
             </div>
@@ -101,7 +134,7 @@
             </div>
           </div>
           
-          <div class="reveal delay-1" style="max-width: 500px;">
+          <div class="reveal delay-1" style="max-width: 500px; width: 100%;">
             <div class="label-mini" style="margin-bottom: 24px;">The Paradigm</div>
             <h2 style="margin-bottom: 24px;">Moving beyond the spreadsheet.</h2>
             <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 32px;">
@@ -182,7 +215,7 @@
     <!-- SECTION 5: INTEGRATION -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
-        <div class="reveal" style="text-align: center; max-width: 600px; margin: 0 auto 60px;">
+        <div class="reveal" style="text-align: center; width: 100%; max-width: 600px; margin: 0 auto 60px;">
           <h2 style="margin-bottom: 24px;">Agnostic Integration</h2>
           <p style="color: var(--text-muted);">FleetAxis is designed to pipe data directly into your existing ERP systems. We provide robust GraphQL and REST APIs.</p>
         </div>
@@ -212,10 +245,10 @@
       <!-- Background Image -->
       <div style="position: absolute; inset: 0; background: url('images/roi-chart.png') center/cover no-repeat; opacity: 0.5; z-index: 1; filter: brightness(0.6);"></div>
       
-      <div class="container relative" style="z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <div class="reveal">
+      <div class="container relative" style="z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center; width: 100%;">
+        <div class="reveal" style="width: 100%;">
           <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Case Study</div>
-          <h2 style="margin-bottom: 24px; font-size: 3.5rem; color: #fff; letter-spacing: -0.02em;">Acme Logistics ROI.</h2>
+          <h2 style="margin-bottom: 24px; font-size: clamp(2rem, 8vw, 3.5rem); color: #fff; letter-spacing: -0.02em;">Acme Logistics ROI.</h2>
           <p style="color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6; max-width: 600px; margin-inline: auto; font-size: 1.2rem;">
             By transitioning 500 legacy vehicles to the FleetAxis architecture, Acme Logistics reduced unplanned downtime by 41% and lowered fuel fraud to zero.
           </p>
@@ -227,9 +260,9 @@
     <!-- SECTION 7: CTA -->
     <section class="section" style="padding: 0; background: var(--bg-surface-2); border-top: 1px solid var(--border-color);">
       <div class="grid" style="grid-template-columns: 1fr 1fr; align-items: stretch;">
-        <div class="reveal" style="padding: 120px 5vw; display: flex; flex-direction: column; justify-content: center;">
+        <div class="reveal" style="padding: 120px 5vw; display: flex; flex-direction: column; justify-content: center; width: 100%;">
           <div class="label-mini" style="margin-bottom: 24px;">Deploy FleetAxis</div>
-          <h2 class="display-2" style="margin-bottom: 24px; font-size: 3.5rem;">Eradicate downtime.</h2>
+          <h2 class="display-2" style="margin-bottom: 24px; font-size: clamp(2rem, 8vw, 3.5rem);">Eradicate downtime.</h2>
           <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 500px; line-height: 1.6;">
             By integrating directly into your vehicle's OBD-II port, we turn mechanical failure into a predictable, mathematically solvable equation. Start leveraging the data you already own.
           </p>

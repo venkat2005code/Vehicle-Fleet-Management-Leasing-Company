@@ -52,6 +52,19 @@
       .arch-grid { grid-template-columns: 1fr; }
       .addon-item { flex-direction: column; align-items: flex-start; gap: 16px; }
       .roi-bar { font-size: 1.1rem; }
+      .modeler-container { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+    }
+    @media (max-width: 480px) {
+      .pricing-header { padding-top: calc(var(--header-h) + 48px); padding-bottom: 48px; }
+      .modeler-container { padding: 24px 16px; gap: 32px; }
+      .cost-huge { font-size: 3rem; }
+      .lead-text { font-size: 1rem; }
+      .arch-cell { padding: 24px; }
+      .addon-item { padding: 24px 16px; }
+      .roi-container { padding: 60px 0; }
+      .roi-bar { font-size: 1rem; padding: 0 16px; height: 48px; }
+      .faq-item { padding: 24px 0; }
+      .faq-q { font-size: 1.2rem; }
     }
   </style>
   <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
@@ -84,9 +97,33 @@
         <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
         <div class="dir-toggle" id="dirToggle">LTR</div>
         <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- MOBILE NAV DRAWER -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav-link">Home 1 (Cinematic)</a>
+    <a href="home2.html" class="mobile-nav-link">Home 2 (Swiss Grid)</a>
+    <a href="services.html" class="mobile-nav-link">Capabilities</a>
+    <a href="catalog.html" class="mobile-nav-link">Fleet Inventory</a>
+    <a href="pricing.html" class="mobile-nav-link active">Economics</a>
+    <a href="login.html" class="mobile-nav-link">Terminal</a>
+    <a href="dashboard-user.html" class="mobile-nav-sub">User Dashboard</a>
+    <a href="dashboard-admin.html" class="mobile-nav-sub">Admin Dashboard</a>
+    <div class="mobile-nav-cta">
+      <a href="login.html" class="btn btn-primary" style="margin-bottom: 24px;">Deploy Core</a>
+      <div style="display: flex; gap: 16px; align-items: center; justify-content: center;">
+        <div class="dir-toggle">LTR</div>
+        <button class="btn-icon theme-toggle" aria-label="Toggle dark/light mode" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
   <main>
     <!-- S1: HERO -->
@@ -98,7 +135,7 @@
         <div class="reveal">
           <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Financial Models</div>
           <h1 class="display-1" style="margin-bottom: 24px; color: #fff;">Transparent<br>Leverage.</h1>
-          <p class="lead-text" style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.8);">
+          <p class="lead-text" style="width: 100%; max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.8);">
             We do not use rigid tiers or opaque pricing structures. Our platform fee scales linearly with your active node count.
           </p>
         </div>
@@ -141,7 +178,7 @@
     <section class="section">
       <div class="container">
         <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 24px;">Enterprise Volume Curve.</h2>
-        <p class="lead-text reveal" style="max-width: 600px;">As your deployed node count increases, your per-node cost mathematically decreases.</p>
+        <p class="lead-text reveal" style="width: 100%; max-width: 600px;">As your deployed node count increases, your per-node cost mathematically decreases.</p>
         
         <div class="volume-scale reveal delay-1">
           <div class="vol-step">
@@ -183,7 +220,7 @@
     <section class="section" style="background: var(--bg-surface);">
       <div class="container">
         <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 24px;">Physical Upgrades.</h2>
-        <p class="lead-text reveal" style="max-width: 600px;">Certain logistical operations require specialized hardware arrays.</p>
+        <p class="lead-text reveal" style="width: 100%; max-width: 600px;">Certain logistical operations require specialized hardware arrays.</p>
         
         <div class="addon-list reveal delay-1">
           <div class="addon-item">
@@ -242,10 +279,10 @@
             <img src="images/pricing-dashboard.png" alt="Live Financial Dashboard showing capital allocation" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
           </div>
         </div>
-        <div class="reveal" style="padding: 120px 5vw; display: flex; flex-direction: column; justify-content: center;">
+        <div class="reveal" style="padding: 120px 5vw; display: flex; flex-direction: column; justify-content: center; width: 100%;">
           <div class="label-mini" style="margin-bottom: 24px;">Initialize Architecture</div>
-          <h2 class="display-2" style="margin-bottom: 24px; font-size: 3.5rem;">Stop leaking capital.</h2>
-          <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 500px; line-height: 1.6;">
+          <h2 class="display-2" style="margin-bottom: 24px; font-size: clamp(2rem, 8vw, 3.5rem);">Stop leaking capital.</h2>
+          <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; width: 100%; max-width: 500px; line-height: 1.6;">
             Fragmented systems and manual expense reports are costing you an average of $2,600 per vehicle annually. Centralize your financial protocol today.
           </p>
           <div>

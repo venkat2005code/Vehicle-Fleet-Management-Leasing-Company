@@ -17,6 +17,8 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -25,6 +27,7 @@ body {
   color: var(--text-base);
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100vw;
   transition: background 0.4s ease, color 0.4s ease;
   position: relative;
 }
@@ -832,11 +835,115 @@ html.dark .topo-grid {
   transform-origin: right;
 }
 
-/* ─── 10. RESPONSIVE ─────────────────────────── */
-.hamburger {
+/* ─── 10. RESPONSIVE & HAMBURGER ─────────────────────────── */
+
+/* ── Mobile Nav Drawer ── */
+.mobile-nav {
   display: none;
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-surface);
+  z-index: 998;
+  flex-direction: column;
+  padding: 32px 24px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border-color);
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.mobile-nav.open {
+  transform: translateX(0);
+}
+
+/* Show mobile-nav as flex only when hamburger is visible */
+@media (max-width: 1024px) {
+  .mobile-nav {
+    display: flex;
+  }
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 18px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  transition: color 0.2s;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--text-base);
+}
+
+.mobile-nav-sub {
+  padding: 10px 0 10px 16px;
+  font-size: 0.9rem;
+  color: var(--text-faint);
+  border-bottom: 1px solid var(--border-color);
+  display: block;
+  transition: color 0.2s;
+}
+.mobile-nav-sub:hover { color: var(--text-base); }
+
+.mobile-nav-cta {
+  margin-top: 32px;
+}
+
+.mobile-nav-cta .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Hamburger Button ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--r-sm);
+  background: transparent;
+  transition: border-color 0.3s;
+  min-width: 42px;
+  min-height: 42px;
+}
+
+.hamburger:hover {
+  border-color: var(--text-base);
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text-base);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── Breakpoints ── */
 @media (max-width: 1024px) {
   .nav {
     display: none;
@@ -844,25 +951,11 @@ html.dark .topo-grid {
 
   .hamburger {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    cursor: pointer;
-  }
-
-  .hamburger span {
-    width: 30px;
-    height: 1px;
-    background: var(--text-base);
-    transition: 0.3s;
   }
 
   .grid-asymmetric {
     grid-template-columns: 1fr;
-    gap: 60px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr !important;
+    gap: 40px;
   }
 
   .grid-swiss {
@@ -877,8 +970,8 @@ html.dark .topo-grid {
 
 @media (max-width: 768px) {
   :root {
-    --section-py: 80px;
-    --header-h: 72px;
+    --section-py: 60px;
+    --header-h: 64px;
   }
 
   .footer-grid {
@@ -888,6 +981,139 @@ html.dark .topo-grid {
 
   .header-controls .btn {
     display: none;
+  }
+
+  .header-controls .dir-toggle,
+  .header-controls .theme-toggle {
+    display: none;
+  }
+
+  /* Typography scale-down */
+  .display-1 {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .text-lead {
+    font-size: 1.1rem;
+  }
+}
+
+/* ── 360px / Small Mobile Fixes ── */
+@media (max-width: 480px) {
+  :root {
+    --section-py: 48px;
+    --header-h: 60px;
+  }
+
+  /* Prevent any horizontal overflow */
+  body {
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding-inline: 16px;
+  }
+
+  /* Header: logo + hamburger only, no overflow */
+  .header-inner {
+    padding-inline: 16px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+    gap: 8px;
+  }
+
+  .brand-logomark {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Typography */
+  .display-1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+    letter-spacing: -0.03em;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 7vw, 1.8rem);
+  }
+
+  h3 {
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+  .text-lead {
+    font-size: 1rem;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Sections */
+  .section {
+    padding-block: var(--section-py);
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  /* Grids */
+  .grid-asymmetric {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .grid-swiss {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mobile nav drawer */
+  .mobile-nav {
+    padding: 24px 16px;
+  }
+
+  .mobile-nav-link {
+    font-size: 1rem;
+    padding: 14px 0;
   }
 }
 

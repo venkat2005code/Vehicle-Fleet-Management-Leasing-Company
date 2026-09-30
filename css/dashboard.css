@@ -266,3 +266,47 @@ html.dark .t-bar:hover { background: var(--accent-cyan); box-shadow: 0 0 15px va
   .terminal-grid { grid-template-columns: 1fr; }
   .dash-title-area { flex-direction: column; align-items: flex-start; gap: 16px; }
 }
+
+@media (max-width: 480px) {
+  .dash-header {
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .dash-content {
+    padding: 16px;
+  }
+
+  .t-panel {
+    padding: 20px 16px;
+  }
+
+  .t-value {
+    font-size: 2rem;
+  }
+
+  .dash-title {
+    font-size: 1.6rem;
+  }
+
+  .dash-title-area {
+    margin-bottom: 24px;
+  }
+
+  .dash-title-area .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 10px 4px;
+    font-size: 0.78rem;
+  }
+
+  /* Hide less-important table column on tiny screens */
+  .data-table th:nth-child(3),
+  .data-table td:nth-child(3) {
+    display: none;
+  }
+}

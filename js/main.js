@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   /* ─── 1. DARK/LIGHT MODE TOGGLE ──────────────────────── */
-  const themeToggle = document.getElementById('themeToggle');
+  const themeToggles = document.querySelectorAll('.theme-toggle');
   const htmlEl = document.documentElement;
   
   // Check local storage or system preference
@@ -15,22 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
     htmlEl.classList.add('dark');
   }
 
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
       htmlEl.classList.toggle('dark');
       const isDark = htmlEl.classList.contains('dark');
       localStorage.setItem('fleetaxis-theme', isDark ? 'dark' : 'light');
     });
-  }
+  });
 
   /* ─── 2. RTL/LTR MODE TOGGLE ─────────────────────────── */
-  const dirToggle = document.getElementById('dirToggle');
+  const dirToggles = document.querySelectorAll('.dir-toggle');
   
   const updateDirLabel = (dir) => {
-    if (dirToggle) {
+    dirToggles.forEach(toggle => {
       // Requirements: "Display only the active mode in the RTL/LTR toggle — show 'LTR' when in LTR mode and 'RTL' when in RTL mode"
-      dirToggle.innerHTML = dir === 'rtl' ? 'RTL' : 'LTR';
-    }
+      toggle.innerHTML = dir === 'rtl' ? 'RTL' : 'LTR';
+    });
   };
 
   // Check saved direction
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
   htmlEl.setAttribute('dir', savedDir);
   updateDirLabel(savedDir);
 
-  if (dirToggle) {
-    dirToggle.addEventListener('click', () => {
+  dirToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
       const currentDir = htmlEl.getAttribute('dir');
       const newDir = currentDir === 'ltr' ? 'rtl' : 'ltr';
       
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('fleetaxis-dir', newDir);
       updateDirLabel(newDir);
     });
-  }
+  });
 
   /* ─── 3. STICKY HEADER ───────────────────────────────── */
   const header = document.querySelector('.header');
@@ -66,22 +66,38 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── 4. MOBILE NAVIGATION ───────────────────────────── */
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobileNav');
-  
+
+  function openMenu() {
+    if (!hamburger || !mobileNav) return;
+    mobileNav.classList.add('open');
+    hamburger.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    if (!hamburger || !mobileNav) return;
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
   if (hamburger && mobileNav) {
     hamburger.addEventListener('click', () => {
-      mobileNav.classList.toggle('open');
-      
-      // Animate hamburger
-      const spans = hamburger.querySelectorAll('span');
       if (mobileNav.classList.contains('open')) {
-        spans[0].style.transform = 'translateY(7px) rotate(45deg)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+        closeMenu();
       } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+        openMenu();
       }
+    });
+
+    // Close when a nav link inside mobile-nav is clicked
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on resize if viewport becomes large
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1024) closeMenu();
     });
   }
 

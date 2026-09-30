@@ -50,6 +50,15 @@
       .maint-grid { grid-template-columns: 1fr; gap: 24px; }
       .ladder-step { flex-direction: column; align-items: flex-start; gap: 16px; margin-left: 0 !important; }
     }
+    @media (max-width: 480px) {
+      .catalog-header { padding-top: calc(var(--header-h) + 48px); padding-bottom: 48px; }
+      .filter-row { overflow-x: auto; gap: 20px; padding: 16px 0; white-space: nowrap; }
+      .v-name { font-size: 1.8rem; }
+      .upfit-card { flex: 0 0 90vw; padding: 24px; }
+      .ev-highlight { padding: 60px 0; }
+      .action-cta { margin: 60px auto; padding: 32px 16px; }
+      .lead-text { font-size: 1rem; }
+    }
 
     /* S7: Floating Action CTA */
     .action-cta { margin: 120px auto; max-width: 800px; background: var(--bg-surface-2); border: 1px solid var(--text-base); padding: 60px; text-align: center; border-radius: var(--r-xl); }
@@ -84,9 +93,33 @@
         <a href="login.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Deploy Core</a>
         <div class="dir-toggle" id="dirToggle">LTR</div>
         <button class="btn-icon theme-toggle" id="themeToggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg></button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- MOBILE NAV DRAWER -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav-link">Home 1 (Cinematic)</a>
+    <a href="home2.html" class="mobile-nav-link">Home 2 (Swiss Grid)</a>
+    <a href="services.html" class="mobile-nav-link">Capabilities</a>
+    <a href="catalog.html" class="mobile-nav-link active">Fleet Inventory</a>
+    <a href="pricing.html" class="mobile-nav-link">Economics</a>
+    <a href="login.html" class="mobile-nav-link">Terminal</a>
+    <a href="dashboard-user.html" class="mobile-nav-sub">User Dashboard</a>
+    <a href="dashboard-admin.html" class="mobile-nav-sub">Admin Dashboard</a>
+    <div class="mobile-nav-cta">
+      <a href="login.html" class="btn btn-primary" style="margin-bottom: 24px;">Deploy Core</a>
+      <div style="display: flex; gap: 16px; align-items: center; justify-content: center;">
+        <div class="dir-toggle">LTR</div>
+        <button class="btn-icon theme-toggle" aria-label="Toggle dark/light mode" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
   <main>
     <!-- S1: HEADER -->
@@ -98,7 +131,7 @@
         <div class="reveal">
           <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Hardware Layer</div>
           <h1 class="display-1" style="margin-bottom: 24px; color: #fff;">Fleet <br>Inventory.</h1>
-          <p class="lead-text" style="max-width: 600px; margin: 0 auto 40px; color: rgba(255,255,255,0.8);">
+          <p class="lead-text" style="width: 100%; max-width: 600px; margin: 0 auto 40px; color: rgba(255,255,255,0.8);">
             Every asset in our catalog arrives pre-configured with the FleetAxis telemetry node. Ready to deploy on day one.
           </p>
         </div>
@@ -160,8 +193,8 @@
       <div class="ev-glow"></div>
       <div class="container relative z-10 text-center reveal">
         <div class="label-mini" style="margin-bottom: 24px; margin-inline: auto; border-color: var(--accent-cyan); color: var(--accent-cyan);">The Electric Shift</div>
-        <h2 style="font-size: 3.5rem; margin-bottom: 24px; color: #fff;">Zero Emissions.<br>Zero Friction.</h2>
-        <p class="lead-text" style="max-width: 600px; margin: 0 auto;">Our EV fleet integrates with native battery-management telemetry. Track state-of-charge, battery degradation, and charging costs in real-time.</p>
+        <h2 style="font-size: clamp(2.5rem, 8vw, 3.5rem); margin-bottom: 24px; color: #fff;">Zero Emissions.<br>Zero Friction.</h2>
+        <p class="lead-text" style="width: 100%; max-width: 600px; margin: 0 auto;">Our EV fleet integrates with native battery-management telemetry. Track state-of-charge, battery degradation, and charging costs in real-time.</p>
       </div>
     </section>
 
@@ -262,10 +295,10 @@
     <section class="section" style="padding: 0; border-top: 1px solid var(--border-color);">
       <div class="reveal" style="position: relative; overflow: hidden; height: 600px; display: flex; align-items: center; justify-content: center;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; filter: brightness(0.4); background: url('images/catalog-cta.png') center/cover no-repeat;"></div>
-        <div style="position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 40px;">
+        <div style="position: relative; z-index: 2; text-align: center; width: 100%; max-width: 800px; padding: 40px;">
           <div class="label-mini" style="margin-bottom: 24px; border-color: rgba(255,255,255,0.2); color: #fff;">Datasheets</div>
-          <h2 style="font-size: 4.5rem; line-height: 1.1; margin-bottom: 24px; color: #fff; letter-spacing: -0.05em;">Explore the 2026 hardware lineup.</h2>
-          <p style="font-size: 1.25rem; color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6;">
+          <h2 style="font-size: clamp(2.5rem, 9vw, 4.5rem); line-height: 1.1; margin-bottom: 24px; color: #fff; letter-spacing: -0.05em;">Explore the 2026 hardware lineup.</h2>
+          <p style="font-size: 1.25rem; color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6; width: 100%;">
             Download the complete FleetAxis vehicle catalog, containing detailed payload capacities, telemetry integrations, and battery ranges for all 24 models.
           </p>
           <a href="#" class="btn" style="padding: 20px 60px; font-size: 1.1rem; background: #fff; color: #000; border: none; font-weight: 600;">Download Technical PDF</a>
